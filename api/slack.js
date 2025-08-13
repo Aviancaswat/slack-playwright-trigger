@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   
   console.log(`Comando recibido de ${user_name}: ${text}`);
 
-  await fetch(`https://api.github.com/repos/USUARIO/REPO/actions/workflows/playwright.yml/dispatches`, {
+  await fetch(`https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/playwright.yml/dispatches`, {
     method: 'POST',
     headers: {
       'Accept': 'application/vnd.github+json',
