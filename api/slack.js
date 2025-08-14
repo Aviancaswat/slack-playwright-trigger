@@ -1,26 +1,34 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).send('Método no permitido');
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { text, user_name } = req.body;
-  
-  console.log(`Comando recibido de ${user_name}: ${text}`);
+  const { mensaje } = req.body;
 
-  await fetch(`https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/slack-trigger.yml/dispatches`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/vnd.github+json',
-      'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      ref: 'feat/ImplementacionSlack',
-      inputs: { parametro: text }
-    })
-  });
+  try {
+    const response = await fetch(
+      "https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/slack-trigger.yml/dispatches",
+      {
+        method: "POST",
+        headers: {
+          "Accept": "application/vnd.github+json",
+          "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+        body: JSON.stringify({
+          ref: "feat/ImplementacionSlack",
+          inputs: { mensaje }
+        }),
+      }
+    );
 
-  return res.status(200).send(`✅ Prueba iniciada con parámetro: ${text}`);
+    if (!response.ok) {
+      const error = await response.json();
+      return res.status(response.status).json(error);
+    }
+
+    res.status(200).json({ message: "Workflow triggered successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
-
-
