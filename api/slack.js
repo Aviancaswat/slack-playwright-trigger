@@ -1,12 +1,11 @@
 // /api/slack.js
-const fetch = require("node-fetch");
-
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const { mensaje } = req.body;
+  const githubToken = process.env.GITHUB_TOKEN;
 
   try {
     const response = await fetch(
@@ -15,7 +14,7 @@ module.exports = async (req, res) => {
         method: "POST",
         headers: {
           "Accept": "application/vnd.github+json",
-          "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
+          "Authorization": `Bearer ${githubToken}`,
           "X-GitHub-Api-Version": "2022-11-28",
         },
         body: JSON.stringify({
@@ -34,4 +33,4 @@ module.exports = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-};
+}
