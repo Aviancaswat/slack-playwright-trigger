@@ -1,5 +1,28 @@
 {
   "name": "slack-playwright-trigger",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "type": "module",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aviancaswat/slack-playwright-trigger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aviancaswat/slack-playwright-trigger/issues"
+  },
+  "homepage": "https://github.com/Aviancaswat/slack-playwright-trigger#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
 }
