@@ -1,4 +1,4 @@
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -17,18 +17,22 @@ module.exports = async function handler(req, res) {
         },
         body: JSON.stringify({
           ref: "feat/ImplementacionSlack",
-          inputs: { mensaje }
+          inputs: { mensaje },
         }),
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const error = await response.json();
-      return res.status(response.status).json(error);
+      return res.status(response.status).json(data);
     }
 
-    res.status(200).json({ message: "Workflow triggered successfully" });
+    return res.status(200).json({
+      message: "Workflow triggered successfully",
+      githubResponse: data,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
-};
+}
