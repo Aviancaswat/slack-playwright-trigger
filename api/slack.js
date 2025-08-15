@@ -16,7 +16,7 @@ export default async function handler(req, res) {
                 method: "POST",
                 headers: {
                     "Accept": "application/vnd.github+json",
-                    "Authorization": `Bearer ${githubToken}`,
+                    "Authorization": `token ${githubToken}`,
                     "X-GitHub-Api-Version": "2022-11-28",
                 },
                 body: JSON.stringify({
