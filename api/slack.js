@@ -8,6 +8,8 @@ export default async function handler(req, res) {
   const githubToken = process.env.GITHUB_TOKEN;
 
   try {
+    console.log("TOKEN", process.env.GITHUB_TOKEN ? "CARGADO" : "NO CARGADO");
+
     const response = await fetch(
       "https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/slack-trigger.yml/dispatches",
       {
