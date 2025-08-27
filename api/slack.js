@@ -1,5 +1,6 @@
 // /api/slack.js
 export default async function handler(req, res) {
+    console.log("TOKEN cargado:", !!process.env.GITHUB_TOKEN);
     if (req.method !== "POST") {
         return res.status(405).json({ error: "Method not allowed" });
     }
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
                 },
                 body: JSON.stringify({
                     ref: "feat/ImplementacionSlack",
-                    inputs: { mensaje: text || "Sin mensaje" },
+                    inputs: { mensaje },
                 }),
             }
         );
@@ -30,7 +31,7 @@ export default async function handler(req, res) {
             return res.status(response.status).json(error);
         }
 
-        res.status(200).json({ message: `Workflow triggered con mensaje: ${mensaje}`});
+        res.status(200).json({ message: "Workflow triggered successfully" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
