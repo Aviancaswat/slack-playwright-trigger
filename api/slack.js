@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 },
                 body: JSON.stringify({
                     ref: "feat/ImplementacionSlack",
-                    inputs: `mensaje: ${text || "Sin mensaje"} `,
+                    inputs: { mensaje: text || "Sin mensaje" },
                 }),
             }
         );
