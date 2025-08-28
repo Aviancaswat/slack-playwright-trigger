@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     try {
 
         const response = await fetch(
-            "https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/playwright.yml/dispatches",
+            "https://api.github.com/repos/Aviancaswat/avianca-test-core-nuxqa6/actions/workflows/slack-trigger.yml/dispatches",
             {
                 method: "POST",
                 headers: {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 },
                 body: JSON.stringify({
                     ref: "feat/ImplementacionSlack",
-                    inputs: { mensaje: text || "Sin mensaje" },
+                    inputs: `mensaje: ${text || "Sin mensaje"} `,
                 }),
             }
         );
